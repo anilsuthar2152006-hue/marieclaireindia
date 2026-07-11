@@ -1,0 +1,250 @@
+/* Stylesheet for Marie Claire Salon India */
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FCF9F6;
+}
+::-webkit-scrollbar-thumb {
+  background: #E3CBB8;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #735c00;
+}
+
+/* Base Transition Rules */
+.transition-all-300 {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Image Hover Zoom Effect */
+.img-zoom-hover {
+  overflow: hidden;
+}
+.img-zoom-hover img {
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.img-zoom-hover:hover img {
+  transform: scale(1.05);
+}
+
+/* Service Card Hover Glimmer / Gilded Border Accent */
+.service-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(208, 197, 175, 0.2);
+}
+.service-card-hover:hover {
+  border-color: #E5C185;
+  box-shadow: 0 10px 30px -10px rgba(115, 92, 0, 0.08);
+}
+
+/* Outlined Buttons */
+.btn-outline-gold {
+  border: 1px solid #735c00;
+  color: #735c00;
+  transition: all 0.3s ease;
+}
+.btn-outline-gold:hover {
+  background-color: #735c00;
+  color: #ffffff;
+}
+
+/* Input Fields Floating Labels Custom Styling */
+.luxury-input {
+  border: none;
+  border-bottom: 1px solid #E3CBB8;
+  background-color: transparent;
+  outline: none;
+  padding: 0.75rem 0;
+  transition: border-color 0.3s ease;
+}
+.luxury-input:focus {
+  border-bottom-color: #735c00;
+  box-shadow: none !important;
+}
+
+/* Custom Scroll to Top Button */
+#scroll-to-top {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Lightbox Modal Stylings */
+.lightbox {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+.lightbox-content {
+  transform: scale(0.9);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.lightbox.active .lightbox-content {
+  transform: scale(1);
+}
+
+/* Form success overlay */
+.success-modal {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+.success-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Scroll Trigger Reveal Classes */
+.reveal {
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.215, 0.61, 0.355, 1), transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.reveal-up {
+  transform: translateY(40px);
+}
+.reveal-left {
+  transform: translateX(-40px);
+}
+.reveal-right {
+  transform: translateX(40px);
+}
+.reveal-scale {
+  transform: scale(0.95);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translate(0) scale(1);
+}
+
+/* Floating Action Custom Anims */
+.floating-btn-bounce {
+  animation: float-bounce 3s infinite ease-in-out;
+}
+@keyframes float-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* CSS Masonry Grid */
+.masonry-grid {
+  column-count: 3;
+  column-gap: 24px;
+  width: 100%;
+}
+.masonry-item {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 24px;
+  break-inside: avoid;
+}
+@media (max-width: 1024px) {
+  .masonry-grid {
+    column-count: 2;
+  }
+}
+@media (max-width: 640px) {
+  .masonry-grid {
+    column-count: 1;
+  }
+}
+
+/* Header height transition on scroll to occupy exactly 10% of viewport height (10vh) */
+#main-header {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  display: flex !important;
+  align-items: center !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  /* Initial height: slightly taller for elegance */
+  height: 12vh !important;
+  min-height: 75px !important;
+  max-height: 110px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+#main-header.scrolled {
+  /* Stick only 10 percent of screen size (10vh) while scrolling */
+  height: 10vh !important;
+  min-height: 64px !important;
+  max-height: 90px !important;
+}
+
+/* Ensure inner layout centers vertically within the scaling header container */
+#main-header > div {
+  height: 100% !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding-bottom: 0 !important;
+}
+
+/* Make logo container a perfect circle across all pages */
+#main-header .w-40 {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 72px !important;
+  height: 72px !important;
+  border-radius: 9999px !important;
+  background-color: #ffffff !important;
+  border: 1.5px solid #F1E4D1 !important; /* champagne border */
+  overflow: hidden !important;
+  box-shadow: 0 4px 10px -2px rgba(115, 92, 0, 0.05) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  flex-shrink: 0 !important;
+}
+
+#main-header .w-40:hover {
+  border-color: #E5C185 !important;
+  box-shadow: 0 6px 14px -1px rgba(115, 92, 0, 0.12) !important;
+  transform: scale(1.03);
+}
+
+#main-header .w-40 a {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#main-header .w-40 img {
+  width: 82% !important;
+  height: 82% !important;
+  object-fit: contain !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  transition: transform 0.3s ease !important;
+}
+
+#main-header.scrolled .w-40 {
+  width: 56px !important;
+  height: 56px !important;
+  box-shadow: 0 2px 6px -2px rgba(115, 92, 0, 0.05) !important;
+}
+
+
+
