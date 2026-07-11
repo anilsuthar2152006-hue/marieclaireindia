@@ -4,6 +4,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initPageTransitions();
   initHeaderScroll();
   initMobileMenu();
   initScrollAnimations();
@@ -183,19 +184,58 @@ function initActiveNavLink() {
     if (!href || href === '#') return;
 
     // Check if link matches current page
-    if (currentPath.includes(href)) {
-      link.classList.add('text-primary', 'font-bold');
+    const isHome = href === 'index.html' && (currentPath.endsWith('/') || currentPath.endsWith('index.html') || currentPath === '');
+    const isMatch = currentPath.includes(href) && href !== 'index.html';
+
+    if (isMatch || isHome) {
+      link.classList.add('text-primary', 'font-bold', 'active-link');
       link.classList.remove('text-on-surface-variant');
-      if (link.tagName === 'A' && link.parentElement.tagName !== 'LI') {
-        link.classList.add('border-b', 'border-primary', 'pb-1');
-      }
     } else {
-      // Remove active classes if they were copied from static templates
-      // but only if it's not actually the current page.
-      if (!currentPath.includes(href)) {
-        link.classList.remove('text-primary', 'font-bold', 'border-b', 'border-primary', 'pb-1');
-        link.classList.add('text-on-surface-variant');
-      }
+      link.classList.remove('text-primary', 'font-bold', 'active-link');
+      link.classList.add('text-on-surface-variant');
+    }
+  });
+}
+
+/**
+ * Page transition effects (fade-in on load, fade-out on click)
+ */
+function initPageTransitions() {
+  // Fade in the page content
+  document.body.classList.add('page-loaded');
+
+  // Handle fade-out on internal link navigation
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (!link) return;
+
+    const href = link.getAttribute('href');
+    const target = link.getAttribute('target');
+
+    // Check if link points to an internal page
+    if (
+      href &&
+      !href.startsWith('#') &&
+      !href.startsWith('javascript:') &&
+      !href.startsWith('mailto:') &&
+      !href.startsWith('tel:') &&
+      target !== '_blank' &&
+      (href.endsWith('.html') || href.startsWith('/') || !href.includes(':'))
+    ) {
+      const currentPathname = window.location.pathname;
+      try {
+        const url = new URL(link.href, window.location.href);
+        // If it is the same page and has a hash, do NOT trigger transition (just scroll)
+        if (url.pathname === currentPathname && url.hash) {
+          return;
+        }
+      } catch (err) {}
+
+      e.preventDefault();
+      document.body.classList.add('page-leaving');
+      setTimeout(() => {
+        window.location.href = href;
+      }, 300); // syncs with transition time
     }
   });
 }
